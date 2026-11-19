@@ -2,6 +2,7 @@ import './style.css';
 import { generate, validate, report, clone, History, TYPES, COLORS, fmt, parseProject } from './core.js';
 import { planSVG, csvReport, imagePrompt, escape } from './plan.js';
 import { pngSize } from './capture.js';
+import { setupRoomMover, roomMove } from './room-move.js';
 
 const $ = id => document.getElementById(id), storageKey = 'casa-aberta:project:v1';
 let project = generate(), selected, history, model, modelPromise, view = 'plan', zoom = 1, timer, suppressSave = false;
@@ -20,6 +21,7 @@ function save() {
   catch { document.querySelector('.local-label').textContent = 'Salvamento indisponível; exporte o JSON'; }
 }
 function render(reset = false) {
+  mover.reset();
   const r = report(project); if (!project.rooms.some(x => x.id === selected)) selected = project.rooms[0]?.id;
   $('project-name').value = project.name; $('wall-thickness').value = project.settings.wallThickness; $('wall-height').value = project.settings.wallHeight;
   $('lot-area').textContent = `${fmt(r.lotArea)} m²`; $('clear-area').textContent = `${fmt(r.clearArea)} m²`;
@@ -45,8 +47,25 @@ function renderProperties() {
 function wallLabel(w) { return { north: 'Frente', south: 'Fundos', west: 'Esquerda', east: 'Direita' }[w]; }
 function selectRoom(id) { selected = id; render(); }
 $('room-list').onclick = e => { const b = e.target.closest('[data-select]'); if (b) selectRoom(b.dataset.select); };
-$('plan-canvas').onclick = e => { const b = e.target.closest('[data-room]'); if (b) selectRoom(b.dataset.room); };
-$('plan-canvas').onkeydown = e => { if (['Enter', ' '].includes(e.key) && e.target.dataset.room) { e.preventDefault(); selectRoom(e.target.dataset.room); } };
+const mover = setupRoomMover({
+  canvas: $('plan-canvas'), status: $('move-status'), bar: $('move-bar'), actions: $('move-actions'),
+  confirm: $('confirm-move'), cancel: $('cancel-move'), project: () => project,
+  editable: () => view === 'plan' && !model?.recording,
+  select(id) {
+    if (selected === id) return;
+    selected = id;
+    for (const room of $('plan-canvas').querySelectorAll('[data-room]')) room.setAttribute('aria-pressed', String(room.dataset.room === id));
+    for (const entry of $('room-list').querySelectorAll('[data-select]')) entry.setAttribute('aria-pressed', String(entry.dataset.select === id));
+    renderProperties();
+  },
+  commit(id, x, y) {
+    change(p => {
+      const move = roomMove(p, id, x, y);
+      if (move.issue) throw Error(move.issue);
+      Object.assign(p.rooms.find(r => r.id === id), { x, y });
+    });
+  },
+});
 $('generate-form').onsubmit = e => { e.preventDefault(); const form = new FormData(e.currentTarget); change(p => Object.assign(p, generate(Object.fromEntries([...form].map(([k, v]) => [k, Number(v)])))), { reset: true }); };
 $('project-name').onchange = e => change(p => p.name = e.target.value);
 $('wall-thickness').onchange = e => change(p => p.settings.wallThickness = Number(e.target.value));
@@ -65,7 +84,8 @@ $('zoom-out').onclick = () => setZoom(zoom / 1.5);
 $('zoom-fit').onclick = () => { setZoom(1); $('plan-view').scrollTo(0, 0); };
 
 async function showView(next) {
-  view = next; const is3d = next === 'model';
+  mover.reset();
+  view = next; const is3d = next === 'model'; $('move-bar').hidden = is3d;
   $('plan-view').hidden = is3d; $('plan-zoom').hidden = is3d; $('model-view').hidden = !is3d; $('tab-plan').setAttribute('aria-selected', String(!is3d)); $('tab-model').setAttribute('aria-selected', String(is3d));
   if (is3d) try {
     if (!modelPromise) modelPromise = import('./model.js').then(({ HouseModel }) => { model = new HouseModel($('model-canvas')); model.update(project, true); return model; }).catch(error => { modelPromise = null; throw error; });

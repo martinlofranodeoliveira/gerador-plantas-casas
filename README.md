@@ -29,7 +29,8 @@ o 3D; o editor 2D continua útil em dispositivos sem suporte gráfico.
 - Informar largura/profundidade do terreno, recuos e quantidade de quartos.
 - Gerar uma distribuição paramétrica com sala, cozinha/jantar, quartos,
   banheiro, serviço e circulação central de 1 m livre na configuração inicial.
-- Selecionar ambientes, alterar nome, uso, posição e dimensões pelos campos.
+- Arrastar ambientes na grade de 0,10 m, acompanhar X/Y em metros e confirmar a posição.
+- Selecionar ambientes e editar nome, uso, posição e dimensões pelos campos.
 - Ampliar a planta até 800% para ler as cotas e navegar pelas barras de rolagem.
 - Adicionar/remover ambientes, portas e janelas, incluindo peitoril e altura.
 - Ajustar espessura e altura das paredes; compartilhar paredes sem duplicação.
@@ -40,10 +41,13 @@ o 3D; o editor 2D continua útil em dispositivos sem suporte gráfico.
   ilustrativo e um passeio orbital **WebM** de oito segundos pelo modelo 3D.
 - Alternar paredes cortadas/inteiras e enquadrar o terreno na vista 3D.
 
-A interface prioriza operação por formulário e teclado. Selecionar ambiente na
-planta não habilita arraste ou desenho livre de polígonos nesta versão. Plantas
-com erros geométricos podem ser salvas em JSON, mas os exports visuais ficam
-bloqueados até corrigir os avisos.
+Na planta 2D, arraste um ambiente ou dê foco a ele com Tab e use as setas.
+As cotas X/Y mostram a posição proposta dos eixos a partir da origem do terreno.
+Soltar mantém a prévia aberta. Confirme com Enter ou **Confirmar**, ou volte com
+Escape ou **Cancelar**. Uma sobreposição ou invasão de recuo bloqueia a confirmação.
+Cada movimento confirmado ocupa uma etapa de desfazer. Os campos de posição
+continuam aceitando medidas com resolução de 1 mm. Plantas com erros podem ser
+salvas em JSON; corrija os avisos para exportar imagens.
 
 ## Medidas: como interpretar
 

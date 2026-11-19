@@ -1,6 +1,5 @@
 # Próximas melhorias
 
-- Ajuste por arraste com encaixe em grade e cotas durante o movimento.
 - Portas com mão/sentido explícitos e verificação de circulação em planta.
 - Percurso interno com câmera e colisão, separado da apresentação orbital.
 - Novos testes de navegador para import/export, WebGL, acessibilidade e gravação.

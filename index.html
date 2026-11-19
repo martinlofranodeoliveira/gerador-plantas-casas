@@ -23,8 +23,13 @@
         <div id="plan-view" role="tabpanel" aria-labelledby="tab-plan"><div id="plan-canvas"></div></div>
         <div id="model-view" role="tabpanel" aria-labelledby="tab-model" hidden><div id="model-canvas"></div><div class="model-controls"><button id="full-walls">Mostrar paredes inteiras</button><button id="reset-camera">Enquadrar terreno</button></div><p class="model-help">Arraste para girar · roda para aproximar · botão direito para mover</p></div>
       </div>
+      <div id="move-bar" class="move-bar">
+        <span class="grid-legend">Grade 0,10 m</span>
+        <span id="move-status" role="status" aria-live="polite" aria-atomic="true">Arraste um ambiente ou use as setas. Enter confirma e Esc cancela.</span>
+        <div id="move-actions" class="move-actions" hidden><button id="confirm-move" class="primary" type="button">Confirmar</button><button id="cancel-move" type="button">Cancelar</button></div>
+      </div>
       <div class="plan-zoom" id="plan-zoom" role="group" aria-label="Zoom da planta"><button id="zoom-out" aria-label="Diminuir zoom">−</button><output id="zoom-value">100%</output><button id="zoom-in" aria-label="Aumentar zoom">+</button><button id="zoom-fit">Enquadrar</button></div>
-      <div class="drawing-footer"><span><i class="legend-line"></i> Paredes compartilhadas</span><span><i class="legend-window"></i> Janelas</span><span>Selecione um ambiente para editar</span></div>
+      <div class="drawing-footer"><span><i class="legend-line"></i> Paredes compartilhadas</span><span><i class="legend-window"></i> Janelas</span></div>
       <div id="issues" class="issues" aria-live="polite"></div>
       <section class="export-bar" aria-label="Exportações"><div><h2>Leve a sua ideia.</h2><p>Arquivos abertos para conversar e continuar o projeto.</p></div><div class="export-actions"><button id="export-svg">Planta SVG</button><button id="export-png">Imagem PNG</button><button id="export-video">Vídeo 3D</button><button id="export-json">Salvar JSON</button><button id="import-trigger" type="button">Abrir JSON</button><input id="import-json" type="file" accept=".json,application/json" hidden><button id="export-csv">Áreas CSV</button><button id="export-prompt">Prompt de imagem</button></div></section>
       <p class="scope-note">Estudo preliminar com medidas calculadas. Não substitui projeto executivo, cálculo estrutural ou aprovação por arquiteto/engenheiro. A imagem de IA é ilustrativa; a referência dimensional é a planta.</p>
