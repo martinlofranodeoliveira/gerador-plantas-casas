@@ -23,6 +23,7 @@ function save() {
 function render(reset = false) {
   mover.reset();
   const r = report(project); if (!project.rooms.some(x => x.id === selected)) selected = project.rooms[0]?.id;
+  $('plan-facts').textContent = `${fmt(project.lot.width)} × ${fmt(project.lot.depth)} m · ${project.rooms.length} ${project.rooms.length === 1 ? 'ambiente' : 'ambientes'}`;
   $('project-name').value = project.name; $('wall-thickness').value = project.settings.wallThickness; $('wall-height').value = project.settings.wallHeight;
   $('lot-area').textContent = `${fmt(r.lotArea)} m²`; $('clear-area').textContent = `${fmt(r.clearArea)} m²`;
   $('validation-badge').textContent = r.valid ? 'Geometria verificada' : `${r.errors.length} ajuste(s) necessário(s)`; $('validation-badge').classList.toggle('invalid', !r.valid);

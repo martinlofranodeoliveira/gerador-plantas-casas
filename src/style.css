@@ -26,3 +26,85 @@
 
 #plan-canvas .room[aria-pressed="true"]:not(.room-invalid)>rect{stroke:#315d3d}
 #plan-canvas .room>*{touch-action:none}
+
+/* The dark drafting desk frames the editable plan while the controls stay on paper. */
+:root {--ink:#1d3234;--muted:#465c5c;--green:#16494c;--paper:#fffefa;--line:#cdd4cd;--accent:#e2ebe4;
+  font-family:"Segoe UI",Arial,sans-serif;background:#edf0ea;color:var(--ink)}
+.app-header{background:#fffefa;border-bottom:1px solid #cbd3cb;min-height:60px;padding:12px clamp(16px,2.7vw,50px)}
+.brand{font-size:24px;letter-spacing:-.055em;color:#183f42}
+.brand svg{width:32px;height:32px}
+.header-actions{font-size:13px}.header-actions a{text-decoration-thickness:1px}
+.studio-mast{display:flex;align-items:center;min-height:clamp(128px,13vw,180px);padding:20px clamp(20px,4.1vw,80px);
+  background-color:#183a38;background-image:linear-gradient(90deg,#142d30eb,#192f31b8 40%,#142d3000 75%),url('/maquete-atelier.webp');background-size:cover;background-position:center 49%;color:#fffefa}
+.studio-mast h1{font-family:Georgia,serif;font-size:clamp(39px,4vw,65px);font-weight:400;line-height:1.04;letter-spacing:-.05em;margin:0 0 8px;color:inherit}
+.studio-mast p{color:#e2ece4;margin:0;max-width:42ch;font-size:15px;line-height:1.45}
+.studio-nav{display:none}
+.editor{width:100%;grid-template-columns:minmax(205px,.85fr) minmax(360px,2.6fr) minmax(210px,.88fr);gap:14px;padding:18px clamp(15px,2vw,36px) 30px;align-items:start}
+.panel,.workspace{min-width:0;background:var(--paper);border:1px solid #c9d0ca;border-radius:10px}
+.panel{padding:clamp(15px,1.4vw,24px)}
+.panel-heading{margin-bottom:20px}
+.panel-heading h2,.export-bar h2{font-family:Georgia,serif;font-size:27px;line-height:1.12;letter-spacing:-.035em;font-weight:400;color:var(--ink)}
+.panel-heading p,.field-help,.scope-note,.guide,.export-bar p,.room-entry .area,.move-bar{font-size:12px;line-height:1.5}
+fieldset>legend,h3,.section-title h2,.area-summary h2{font-size:16px}
+input,select{border-color:#bec9c2;border-radius:6px;background:white;min-height:37px}
+.field-pair{gap:9px}label{font-size:13px}
+.full{justify-content:center;min-height:44px;font-weight:650}
+.primary:hover{background:#285c5e;border-color:#285c5e}
+.text-button,.opening-row,.opening-row button{font-size:12px}
+.room-entry{font-size:13px}.room-entry[aria-pressed=true]{background:#dfece4;color:#153a39}
+.room-entry .swatch{width:11px;height:11px;border:1px solid #60736c}
+.measure-line{background:#e5eee9;color:#294c45;border-left:3px solid #557c6a}
+.workspace{padding:0 clamp(12px,1vw,20px) 20px}
+.workspace-summary{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:14px 0 11px;border-bottom:1px solid var(--line)}
+.workspace-summary>div{min-width:0;flex:1}
+.workspace-summary input{display:block;max-width:100%;min-height:31px;font-family:Georgia,serif;font-size:clamp(23px,2vw,33px);letter-spacing:-.04em;font-weight:400;border:1px solid transparent;background:transparent;padding:0 3px}
+.workspace-summary input:focus-visible,.workspace-summary input:hover{border-color:var(--line)}
+#plan-facts{display:block;margin:4px 0 0 4px;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.validation-badge{display:inline-flex;gap:6px;align-items:center;background:#e3efe8;color:#244f41;font-size:11px;font-weight:650;border-radius:4px}
+.validation-badge::before{content:"";width:7px;height:7px;background:#387b59;border-radius:50%}
+.validation-badge.invalid::before{background:#97442c}
+.workspace-toolbar{min-height:54px;border:0;gap:4px}
+.view-tabs{background:#e8ece6;padding:3px;border-radius:7px;gap:0}
+.view-tabs button{padding:8px 12px;font-size:13px;border-radius:5px;color:#384d4d}
+.view-tabs button[aria-selected=true]{background:#254d50;color:#fff}
+.history-actions button,.scale-control select,.plan-zoom button{min-height:31px}
+.drawing-surface{height:clamp(415px,57vh,680px);border-radius:6px;border:1px solid #31585a;background-color:#264448;
+  background-image:linear-gradient(#b0d5c918 1px,transparent 1px),linear-gradient(90deg,#b0d5c918 1px,transparent 1px),linear-gradient(#b0d5c914 1px,transparent 1px),linear-gradient(90deg,#b0d5c914 1px,transparent 1px);
+  background-size:100px 100px,100px 100px,20px 20px,20px 20px}
+#plan-canvas{padding:12px}
+#plan-canvas svg>g.dimension text,#plan-canvas svg>g:last-child>text,#plan-canvas svg>g:last-child .dimension text{fill:#edf7f0}
+#plan-canvas svg .dimension{stroke:#e6f1e8}
+#plan-canvas .room[aria-pressed=true]:not(.room-invalid)>rect{stroke:#196458;stroke-width:2.5px;vector-effect:non-scaling-stroke}
+#plan-canvas .room:focus-visible>rect{stroke:#bc4c10}
+.grid-legend,.drawing-footer,.plan-zoom{font-size:12px}
+.export-bar{padding-top:14px}
+.export-actions{margin-top:12px}.export-actions button{font-size:13px;min-height:37px}
+.legend-line,.legend-window{width:19px}
+@media (max-width:1100px) and (min-width:721px){
+ .editor{grid-template-columns:minmax(205px,.92fr) minmax(380px,2.4fr);gap:12px}
+ .properties{grid-column:1/-1;display:grid;grid-template-columns:minmax(150px,.85fr) minmax(240px,1.5fr) minmax(150px,.85fr);gap:20px}
+ .properties .area-summary{border:0;margin:0;padding:0}
+}
+@media (max-width:720px){
+ .app-header{min-height:52px;padding:10px 16px}.brand{font-size:23px}.header-actions a{font-size:12px}
+ .studio-mast{min-height:126px;padding:20px 16px;background-position:64% 48%;background-image:linear-gradient(90deg,#142d30f0,#152f32c7 56%,#142d3015),url('/maquete-atelier.webp')}
+ .studio-mast h1{font-size:37px}.studio-mast p{font-size:14px;max-width:25ch}
+ .studio-nav{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px;padding:4px 13px;border-bottom:1px solid #cbd2cb;background:#fffefa}
+ .studio-nav a{display:inline-flex;align-items:center;min-height:36px;color:#234d4f;font-size:13px;font-weight:600;text-decoration:none}
+ .editor{display:flex;flex-direction:column;gap:12px;padding:10px}
+ .workspace,.panel{width:100%}.workspace{order:1;padding:0 10px 14px}.setup{order:2}.properties{order:3}
+ .workspace-summary{align-items:flex-start;padding:10px 0 8px}.workspace-summary input{font-size:22px}.validation-badge{font-size:10px;margin:3px 0 0}
+ .workspace-toolbar{min-height:50px;flex-wrap:wrap}.view-tabs button{font-size:12px;padding:8px 9px}
+ .history-actions{gap:2px}.scale-control select{font-size:11px}
+ .drawing-surface{height:clamp(340px,54svh,530px)}
+ #plan-canvas{padding:7px}
+ .move-bar{font-size:12px}.workspace input,.panel input,.panel select{font-size:16px}
+ .workspace-summary input{font-size:23px}
+ .panel{padding:17px}.panel-heading h2{font-size:26px}.setup #generate-form{gap:0 11px}
+ .property-form .field-pair{grid-column:1/-1}
+ .export-actions button{min-height:40px}
+}
+@media (max-width:360px){
+ .room-list{grid-template-columns:minmax(0,1fr)}
+ .workspace-summary{flex-wrap:wrap}.view-tabs button{padding-inline:6px}.scale-control select{width:60px}.icon-button{padding-inline:5px}
+}
